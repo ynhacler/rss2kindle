@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div><a href="/entry/{{entry.id}}">{{entry.title}}</a></div>
+<div><a href="/entry/{{entry.id}}">{{entry.title|e}}</a></div>
 {% if user.admin %}
     {% if entry.hidden %}
     <div><a href="/backstage/entry/{{entry.id}}/show">设为显示</a></div>

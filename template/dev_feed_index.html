@@ -26,7 +26,7 @@
 </div>
 <hr />
 {% for entry in entries %}
-<div><a href="/entry/{{entry.id}}">{{entry.title}}</a></div>
+<div><a href="/entry/{{entry.id}}">{{entry.title|e}}</a></div>
 {% if user.admin %}
     {% if entry.hidden %}
     <div><a href="/backstage/entry/{{entry.id}}/show?next_url={{request.path}}">设为可见<a></div>

@@ -156,10 +156,9 @@ class LogoutHandler(BaseHandler):
 
 class FeedListHandler(BaseHandler):
     def get(self):
-        feeds = self.db.query(m.Feed).\
-                filter_by(hidden=False).all()
+        query = self.db.query(m.Feed).filter_by(hidden=False)
 
-        page, page_clue, feeds = self.paging(feeds)
+        page, page_clue, feeds = self.paging(query)
         user = self.get_current_user()
         base_url = self.request.path
         args = locals()
@@ -173,10 +172,10 @@ class FeedIndex(BaseHandler):
                 filter_by(slug=slug, hidden=False).first()
         if feed is None :
             raise tornado.web.HTTPError(404)
-        entries = self.db.query(m.Entry).\
+        query = self.db.query(m.Entry).\
                 filter_by(fid=feed.id, hidden=False).\
-                order_by(m.Entry.fetch_timestamp.desc()).all()
-        page, page_clue, entries = self.paging(entries)
+                order_by(m.Entry.fetch_timestamp.desc())
+        page, page_clue, entries = self.paging(query)
         user = self.get_current_user()
         args = locals()
         args.pop('self')

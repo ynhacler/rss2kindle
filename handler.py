@@ -118,22 +118,25 @@ class BaseHandler(tornado.web.RequestHandler):
             page_set.insert(-2,-1)
         return page_set
 
-    def paging(self, items, target=None):
-        length = len(items) // c.ipp
-        mod = len(items) % c.ipp
-        if mod :
+    def paging(self, query):
+        # 条目总数
+        count =  query.count()
+        # 分页总数
+        length = count // c.ipp
+        if count % c.ipp:
             length += 1
         page = self.get_argument('page', 1)
         if page == 'last':
             page = length
-        if target is not None:
-            index = items.index(target)
-            page = index / c.ipp + 1 
         try:
             page = int(page)
         except: #TODO I should do something!
             page = 1
-        items = items[(page-1)*c.ipp:page*c.ipp]
+        if page > length:
+            page = length
+        if page <= 0:
+            page = 1
+        items = query.offset( (page-1)*c.ipp ).limit(c.ipp).all()
         page_clue = self.paging_clue(length, page)
         return page, page_clue, items
 

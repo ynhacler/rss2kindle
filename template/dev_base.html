@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {% block title %}{% endblock %}
+</head>
+<body>
+ <ul>
+   <li><a href="/">index</a></li>
+   <li><a href="/register">register</a></li>
+   <li><a href="/login">login</a></li>
+   <li><a href="/logout">logout</a></li>
+   <li><a href="/account">account</a></li>
+   <li><a href="/feed_list">feed list</a></li>
+   <li><a href="/backstage">backstage index</a></li>
+ </ul>
+ <hr />
+ <ul>
+     <li><a href="/backstage/add_feed">add feed</a></li>
+     <li><a href="/backstage/feed">feed</a></li>
+     <li><a href="/backstage/entry">entry</a></li>
+     <li><a href="/backstage/user">user</a></li>
+ </ul>
+ <hr />
+ {% block main %}
+ {% endblock %}
+</body>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<script src="/static/js/ajax.js"></script>
+</html>

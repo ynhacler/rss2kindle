@@ -1,0 +1,50 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>feed list</title>
+{% endblock %}
+
+{% block main %}
+<div>
+    <div><a href="/feed/{{feed.slug}}">{{feed.name}}</a></div>
+    {% if user.admin %}
+    <div><a href="/backstage/feed/{{feed.slug}}">管理</a></div>
+    {% endif %}
+
+    {% if feed in user.feeds %}
+    <div><a href="/feed/{{feed.slug}}/unsubscribe">unsubscribe</a></div>
+    {% else %}
+    <div><a href="/feed/{{feed.slug}}/subscribe">subscribe</a></div>
+    {% endif  %}
+    <div>frequency:{{feed.frequency}}</div>
+    <div>slug:{{feed.slug}}</div>
+    <div>url:{{feed.url}}</div>
+    <div>syncTime:{{feed.sync_time}}</div>
+    <div>click:{{feed.click}}</div>
+    <div>subcribe:{{feed.subcribe}}</div>
+    <div>download:{{feed.download}}</div>
+</div>
+<hr />
+{% for entry in entries %}
+<div><a href="/entry/{{entry.id}}">{{entry.title}}</a></div>
+{% if user.admin %}
+    {% if entry.hidden %}
+    <div><a href="/backstage/entry/{{entry.id}}/show?next_url={{request.path}}">设为可见<a></div>
+    {% else %}
+    <div><a href="/backstage/entry/{{entry.id}}/hide?next_url={{request.path}}">设为隐藏<a></div>
+    {% endif %}
+{% endif %}
+<div>author:{{entry.author}}</div>
+<div>sourceLink: <a href="{{entry.source_link}}">{{entry.source_link}}</a></div>
+<div>timeStamp:{{entry.time_stamp}}</div>
+<div>like:{{entry.like}}</div>
+<div>share:{{entry.share}}</div>
+<div>hate:{{entry.hate}}</div>
+    <div>
+        <a id="load_{{entry.id}}" href="javascript:;"  onclick="loadNewConten('/entry/{{entry.id}}','{{entry.id}}')" >more</a>
+    </div>
+<hr />
+{% endfor %}
+    {{ xsrf_form_html() }}
+{% include 'module/paging.html' %}
+{% endblock %}

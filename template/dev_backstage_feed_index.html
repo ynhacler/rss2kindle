@@ -1,0 +1,46 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>backstage feed index </title>
+{% endblock %}
+
+{% block main %}
+<h1>{{feed.name}} 的管理页面</h1>
+
+<div>
+    <h3>动作</h3>
+    <div><a href="/backstage/feed/{{feed.slug}}/fetch">立即抓取</a></div>
+    <div>
+        <form action="/backstage/feed/{{feed.slug}}/fetch" method="get">
+            <span>抓取</span>
+            <input type="text" name="ago" />
+            <span>天之前的</span>
+            <input type="submit" value="提交" />
+        </form>
+    </div>
+    <div><a href="/backstage/feed/{{feed.slug}}/delete">删除</a></div>
+    {% if not feed.active %}
+    <div><a href="/backstage/feed/{{feed.slug}}/active">激活(当前禁止)</a></div>
+    {% else %}
+    <div><a href="/backstage/feed/{{feed.slug}}/deactive">禁止(当前激活)</a></div>
+    {% endif %}
+    {% if not feed.fetch_image%}
+    <div><a href="/backstage/feed/{{feed.slug}}/img_on">激活抓取图片(当前禁止)</a></div>
+    {% else %}
+    <div><a href="/backstage/feed/{{feed.slug}}/img_off">禁止抓取图片(当前激活)</a></div>
+    {% endif %}
+    <div><a href="/backstage/feed/{{feed.slug}}/edit">修改</a></div>
+</div>
+<hr />
+<div>
+    <h3>信息</h3>
+    <div><a href="/feed/{{feed.slug}}">{{feed.name}}</a></div>
+    <div>frequency:{{feed.frequency}}</div>
+    <div>slug:{{feed.slug}}</div>
+    <div>url:{{feed.url}}</div>
+    <div>sync time:{{feed.sync_time}}</div>
+    <div>click:{{feed.click}}</div>
+    <div>subcribe:{{feed.subscribe}}</div>
+    <div>download:{{feed.download}}</div>
+</div>
+{% endblock %}

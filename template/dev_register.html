@@ -1,0 +1,53 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>register</title>
+{% endblock %}
+
+{% block main %}
+<form action="/register" method="post">
+  <div>
+    <span>email</span>
+    <input type="email" name="email"/>
+    {% if err_msg.email %}
+    <span>{{err_msg.email}}</span>
+    {% endif %}
+  </div>
+  <div>
+    <span>name</span>
+    <input type="name" name="name"/>
+    {% if err_msg.name%}
+    <span>{{err_msg.name}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>password</span>
+    <input type="password" name="password_1"/>
+    {% if err_msg.password_1%}
+    <span>{{err_msg.password_1}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>password confirm</span>
+    <input type="password" name="password_2"/>
+    {% if err_msg.password_2%}
+    <span>{{err_msg.password_2}}</span>
+    {% endif %}
+  </div>
+
+
+    {% if err_msg._form%}
+  <div>
+    <span>form:{{err_msg._form}}</span>
+  </div>
+    {% endif %}
+
+    {{ xsrf_form_html() }}
+
+  <div>
+    <input type="submit" value="register"/>
+  </div>
+  </form>
+{% endblock %}

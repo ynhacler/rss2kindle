@@ -1,0 +1,17 @@
+<div>
+  <ul>
+  {% if page_clue  and page_clue|length > 1 %}
+      {% for p in page_clue %} 
+
+          {% if p == page %}
+              <li class="current"><a href="">{{p}}</a></li>
+ 
+          {% elif p == -1 %}
+              <li class="unavailable"><a href="">&hellip;</a></li>
+          {% else %}
+              <li><a href="{{base_url}}?page={{p}}">{{p}}</a></li>
+          {% endif %}
+      {% endfor %}
+  {% endif %}
+  </ul>
+</div>

@@ -1,0 +1,39 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>login</title>
+{% endblock %}
+
+{% block main %}
+<form action="/login" method="post">
+  <div>
+    <span>email</span>
+    <input type="email" name="email"/>
+    {% if err_msg.email %}
+    <span>{{err_msg.email}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>password</span>
+    <input type="password" name="password"/>
+    {% if err_msg.password%}
+    <span>{{err_msg.password}}</span>
+    {% endif %}
+  </div>
+
+
+    {% if err_msg._form%}
+  <div>
+    <span>form:{{err_msg._form}}</span>
+  </div>
+    {% endif %}
+
+    {{ xsrf_form_html() }}
+
+  <div>
+      <input type="submit" value="login"/> 
+      <a href="/forget_password">forget password</a>
+  </div>
+  </form>
+{% endblock %}

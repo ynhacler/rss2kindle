@@ -1,0 +1,71 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>account</title>
+{% endblock %}
+
+{% block main %}
+<div>最近一次推送时间: {{user.push_timestamp}}</div>
+<div><a href="/change_password">更改密码</a></div>
+<hr />
+<form  method="post">
+    <div>
+        <span>推送邮箱</span>
+        <input type="email" name="push_mail" value="{{user.kindle_mail}}"/>
+    </div>
+    <div>
+        <span>推送时间（北京时间按)</span>
+        <select  name="push_timing">
+            {% for v in [0,1,2,3,4,5,6,7,8,9,10,11] %}
+            {% if user.push_timing == v %}
+            <option value="{{v}}" selected="selected">{{v*2}}点</option>
+            {% else %}
+            <option value="{{v}}">{{v*2}}点</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="保存"/>
+    </div>
+    {{ xsrf_form_html() }}
+</form>
+<hr />
+<h4>正在推送的订阅</h4>
+{% for subscription in user.subscription_relation%}
+{% if subscription.active %}
+{% set feed = subscription.feed %}
+<div>
+    <div><a href="/feed/{{feed.slug}}">{{feed.name}}</a></div>
+    <div>frequency:{{feed.frequency}}</div>
+    <div>slug:{{feed.slug}}</div>
+    <div><a href="/feed/{{feed.slug}}/unsubscribe">unsubscribe</a></div>
+    <div><a href="/feed/subscription/deactive?sid={{subscription.id}}">deactive</a></div>
+    <div>url:{{feed.url}}</div>
+    <div>sync time:{{feed.sync_time}}</div>
+    <div>click:{{feed.click}}</div>
+    <div>subcription:{{feed.subcribe}}</div>
+    <div>download:{{feed.download}}</div>
+</div>
+<hr />
+{% endif %}
+{% endfor %}
+<h4>暂停推送的订阅</h4>
+{% for subscription in user.subscription_relation%}
+{% if not subscription.active %}
+{% set feed = subscription.feed %}
+<div>
+    <div><a href="/feed/{{feed.slug}}">{{feed.name}}</a></div>
+    <div>frequency:{{feed.frequency}}</div>
+    <div>slug:{{feed.slug}}</div>
+    <div><a href="/feed/{{feed.slug}}/unsubscribe">unsubscribe</a></div>
+    <div><a href="/feed/subscription/active?sid={{subscription.id}}">active</a></div>
+    <div>url:{{feed.url}}</div>
+    <div>sync time:{{feed.sync_time}}</div>
+    <div>click:{{feed.click}}</div>
+    <div>subcription:{{feed.subcribe}}</div>
+    <div>download:{{feed.download}}</div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

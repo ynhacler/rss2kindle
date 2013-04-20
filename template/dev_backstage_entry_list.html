@@ -1,0 +1,18 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>backstage entry list</title>
+{% endblock %}
+
+{% block main %}
+{% for entry in entries %}
+<div><a href="/entry/{{entry.id}}">{{entry.title}}</a></div>
+<div><a href="/backstage/entry/{{entry.id}}/delete">删除</a></div>
+<div><a href="/backstage/entry/{{entry.id}}/del_img">删除图片</a></div>
+{% if entry.hidden %}
+<div><a href="/backstage/entry/{{entry.id}}/show">显示(当前隐藏)</a></div>
+{% else %}
+<div><a href="/backstage/entry/{{entry.id}}/hide">隐藏(当前显示)</a></div>
+{% endif %}
+{% endfor %}
+{% endblock %}

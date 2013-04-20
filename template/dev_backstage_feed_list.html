@@ -1,0 +1,15 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>backstage feed list</title>
+{% endblock %}
+
+{% block main %}
+{% for feed in feeds %}
+<div>
+    <h5>{{feed.name}}</h5>
+    <div><a href="/backstage/feed/{{feed.slug}}">管理</a></div>
+</div>
+<hr />
+{% endfor %}
+{% endblock %}

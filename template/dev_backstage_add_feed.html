@@ -1,0 +1,53 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>add feed</title>
+{% endblock %}
+
+{% block main %}
+<form action="/backstage/add_feed" method="post">
+  <div>
+    <span>frequency</span>
+    <input type="frequency" name="frequency"/>
+    {% if err_msg.frequency %}
+    <span>{{err_msg.frequency}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>name</span>
+    <input type="name" name="name"/>
+    {% if err_msg.name %}
+    <span>{{err_msg.name}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>slug</span>
+    <input type="slug" name="slug"/>
+    {% if err_msg.slug %}
+    <span>{{err_msg.slug}}</span>
+    {% endif %}
+  </div>
+
+  <div>
+    <span>url</span>
+    <input type="url" name="url"/>
+    {% if err_msg.url %}
+    <span>{{err_msg.url}}</span>
+    {% endif %}
+  </div>
+
+    {% if err_msg._form%}
+  <div>
+    <span>form:{{err_msg._form}}</span>
+  </div>
+    {% endif %}
+
+    {{ xsrf_form_html() }}
+
+  <div>
+    <input type="submit" value="add"/>
+  </div>
+  </form>
+{% endblock %}

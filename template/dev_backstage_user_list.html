@@ -1,0 +1,57 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>backstage user list</title>
+{% endblock %}
+
+{% block main %}
+<h3>admin</h3>
+<ul>
+{% for user in admin%}
+<li>{{user.name}}, {{user.email}}</li>
+{% endfor %}
+</ul>
+
+<h3>付费用户</h3>
+{% for user in premium%}
+<div>用户名 {{user.name}} </div>
+<div>email {{user.email}} </div>
+<div>注册日期 {{user.register_time}} </div>
+<div>最后登录 {{user.login_timestamp}} </div>
+<div>付费用户 {{user.premium}} </div>
+<div>激活 {{user.active}} </div>
+<div><a href="/backstage/user/{{user.id}}?active=0">封禁</a></div>
+<div><a href="/backstage/user/{{user.id}}?active=1">激活</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=1">设为付费用户</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=0">设为普通用户</a></div>
+{% endfor %}
+
+<h3>未激活/封禁用户</h3>
+{% for user in deactive %}
+<div>用户名 {{user.name}} </div>
+<div>email {{user.email}} </div>
+<div>注册日期 {{user.register_time}} </div>
+<div>最后登录 {{user.login_timestamp}} </div>
+<div>付费用户 {{user.premium}} </div>
+<div>激活 {{user.active}} </div>
+<div><a href="/backstage/user/{{user.id}}?active=0">封禁</a></div>
+<div><a href="/backstage/user/{{user.id}}?active=1">激活</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=1">设为付费用户</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=0">设为普通用户</a></div>
+{% endfor %}
+
+<h3>超期未登录用户</h3>
+{% for user in expire%}
+<div>用户名 {{user.name}} </div>
+<div>email {{user.email}} </div>
+<div>注册日期 {{user.register_time}} </div>
+<div>最后登录 {{user.login_timestamp}} </div>
+<div>付费用户 {{user.premium}} </div>
+<div>激活 {{user.active}} </div>
+<div><a href="/backstage/user/{{user.id}}?active=0">封禁</a></div>
+<div><a href="/backstage/user/{{user.id}}?active=1">激活</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=1">设为付费用户</a></div>
+<div><a href="/backstage/user/{{user.id}}?premium=0">设为普通用户</a></div>
+{% endfor %}
+
+{% endblock %}

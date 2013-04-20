@@ -33,3 +33,10 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# static file
+static/favicon.ico
+static/js/jquery-1.9.1.min.js
+
+# tmp file
+*.swp

@@ -1,0 +1,27 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>feed list</title>
+{% endblock %}
+
+{% block main %}
+<div><a href="/entry/{{entry.id}}">{{entry.title}}</a></div>
+{% if user.admin %}
+    {% if entry.hidden %}
+    <div><a href="/backstage/entry/{{entry.id}}/show">设为显示</a></div>
+    {% else %}
+    <div><a href="/backstage/entry/{{entry.id}}/hide">设为隐藏</a></div>
+    {% endif %}
+{% endif %}
+<div>author:{{entry.author}}</div>
+<div>source_link: <a href="{{entry.source_link}}">{{entry.source_link}}</a></div>
+<div>time stamp:{{entry.time_stamp}}</div>
+<div>like:{{entry.like}}</div>
+<div>share:{{entry.share}}</div>
+<div>hate:{{entry.hate}}</div>
+<div>belong<a href="/feed/{{entry.feed.slug}}">{{entry.feed.name}}</a></div>
+<hr />
+<div>
+    {{entry.content}}
+</div>
+{% endblock %}

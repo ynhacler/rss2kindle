@@ -1,0 +1,30 @@
+{% extends 'dev_base.html' %}
+
+{% block title %}
+<title>feed list</title>
+{% endblock %}
+
+{% block main %}
+{% for feed in feeds %}
+<div>
+    <div><a href="/feed/{{feed.slug}}">{{feed.name}}</a></div>
+    {% if user.admin %}
+    <div><a href="/backstage/feed/{{feed.slug}}">管理</a></div>
+    {% endif %}
+    <div>frequency:{{feed.frequency}}</div>
+    <div>slug:{{feed.slug}}</div>
+    {% if feed in user.feeds %}
+    <div><a href="/feed/{{feed.slug}}/unsubscribe">unsubscribe</a></div>
+    {% else %}
+    <div><a href="/feed/{{feed.slug}}/subscribe">subscribe</a></div>
+    {% endif %}
+    <div>url:{{feed.url}}</div>
+    <div>sync time:{{feed.sync_time}}</div>
+    <div>click:{{feed.click}}</div>
+    <div>subcription:{{feed.subcribe}}</div>
+    <div>download:{{feed.download}}</div>
+</div>
+<hr />
+{% endfor %}
+{% include 'module/paging.html' %}
+{% endblock %}

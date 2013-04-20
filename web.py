@@ -96,7 +96,6 @@ class IndexHandler(BaseHandler):
             name = self.current_user.name
         else:
             name = u'游客'
-        entries = self.db.query(m.Entry).all()
         args = dict(name=name)
         self.jrender('dev_index.html', **args)
        

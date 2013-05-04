@@ -32,7 +32,7 @@ def cron_fetch_image():
     db = m.Session()
     entries = db.query(m.Entry).filter_by(hidden=False, got_img=False).all()
     for entry in entries:
-        if entry.feed.fetch_image:
+        if not entry.feed.fetch_image:
             continue
         logging.info('cron_fetch_image:entry id->%s ' %(str(entry.id)))
         queue.enqueue(task.fetch_img, entry.feed.slug, entry.id)

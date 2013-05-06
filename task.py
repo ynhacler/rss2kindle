@@ -134,7 +134,7 @@ def fetch_img(feed_slug, eid, force=False):
         db.add(img)
         img_serial += 1
         if total_size >= config.img_size_per_entry:
-            logging.warning('entry %s contain too much image size: %sM%K' %( eid, total_size/1024/1024, total_size/1024))
+            logging.warning('entry %s contain too much image size: %sM%sK' %( eid, total_size/1024/1024, total_size%1024))
             break
     #endfor
     entry.got_img=True
